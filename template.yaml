@@ -25,7 +25,7 @@ Resources:
       VersioningConfiguration:
         Status: Enabled   # Enabling versioning as required by CIS benchmarks
       LoggingConfiguration:
-        DestinationBucketName: !Ref CFTemplateBucketLogging    # Enabling Logging
+        DestinationBucketName: !Ref CFTemplateBucket    # Enabling Logging
         LogFilePrefix: 'Logs/'    # Prefix for log files in the destination bucket
       PublicAccessBlockConfiguration:
         BlockPublicAcls: true
@@ -37,25 +37,6 @@ Resources:
           Value: !Sub '${BucketName}-${Environment}'
         - Key: Environment
           Value: !Ref Environment
-
-  # Logging bucket for S3 Logs
-  CFTemplateBucketLogging:
-    Type: AWS::S3::Bucket
-    Properties:
-      AccessControl: LogDeliveryWrite
-      VersioningConfiguration:
-        Status: Enabled
-      PublicAccessBlockConfiguration:
-        BlockPublicAcls: true
-        BlockPublicPolicy: true
-        IgnorePublicAcls: true
-        RestrictPublicBuckets: true
-      Tags:
-        - Key: Name
-          Value: !Sub 'LoggingBucket-${Environment}'
-        - Key: Environment
-          Value: !Ref Environment
-        
 
 Outputs:
   BucketName:
