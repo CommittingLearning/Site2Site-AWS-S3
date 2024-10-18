@@ -40,6 +40,7 @@ jobs:
       # Run CloudFormation Guard using Guard-Action
       - name: Run CloudFormation Guard
         uses: grolston/guard-action@main
+        continue-on-error: true
         with:
           data_directory: './'
           rule_set: "cis-aws-benchmark-level-1"

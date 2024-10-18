@@ -24,9 +24,6 @@ Resources:
       AccessControl: Private
       VersioningConfiguration:
         Status: Enabled   # Enabling versioning as required by CIS benchmarks
-      LoggingConfiguration:
-        DestinationBucketName: !Ref CFTemplateBucket    # Enabling Logging
-        LogFilePrefix: 'Logs/'    # Prefix for log files in the destination bucket
       PublicAccessBlockConfiguration:
         BlockPublicAcls: true
         BlockPublicPolicy: true
