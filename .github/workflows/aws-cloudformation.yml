@@ -94,10 +94,10 @@ jobs:
           aws cloudformation deploy \
             --template-file template.yaml \
             --parameter-overrides Environment=${{ env.ENVIRONMENT }} \
-            --stack-name VPC-Stack-${{ env.ENVIRONMENT }} \
+            --stack-name S3-Stack-${{ env.ENVIRONMENT }} \
             --capabilities CAPABILITY_IAM
 
       # Describing Information about the Deployment
       - name: Run AWS CLI Tests
         run: |
-          aws cloudformation describe-stacks --stack-name VPC-Stack-${{ env.ENVIRONMENT }}
+          aws cloudformation describe-stacks --stack-name S3-Stack-${{ env.ENVIRONMENT }}
