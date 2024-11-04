@@ -32,7 +32,7 @@ jobs:
           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
           aws-region: us-west-2
 
-      # Pre-deployment checks: CloudFormation template validation and plan
+      # Pre-deployment checks: CloudFormation template validation
       - name: Validate Cloudformation Template
         run: |
           aws cloudformation validate-template --template-body file://template.yaml
