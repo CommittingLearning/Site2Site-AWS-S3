@@ -1,0 +1,45 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: CloudFormation template to provision an S3 bucket for CloudFormation templates hosting (CIS compliant).
+
+Parameters: 
+  Environment: 
+    Type: String
+    Description: The environment name (e.g., development, production)
+    AllowedValues: 
+          - development
+          - production
+          - default
+
+  BucketName: 
+    Type: String
+    Description: The base name for the S3 bucket.
+    Default: 's2s-ts101-cftemplates'
+
+Resources:
+  # S3 Bucket for cloudformation templates
+  CFTemplateBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub '${BucketName}-${Environment}-${AWS::AccountId}'
+      AccessControl: Private
+      VersioningConfiguration:
+        Status: Enabled   # Enabling versioning as required by CIS benchmarks
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      Tags:
+        - Key: Name
+          Value: !Sub '${BucketName}-${Environment}'
+        - Key: Environment
+          Value: !Ref Environment
+
+Outputs:
+  BucketName:
+    Description: 'The name of the created S3 bucket'
+    Value: !Ref CFTemplateBucket
+
+  BucketArn:
+    Description: 'The ARN of the created S3 bucket'
+    Value: !GetAtt CFTemplateBucket.Arn
